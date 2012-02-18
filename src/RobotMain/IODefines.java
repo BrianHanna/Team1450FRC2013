@@ -6,6 +6,7 @@
 package RobotMain;
 
 import Robot.Utils.Joysticks;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  *
@@ -13,9 +14,8 @@ import Robot.Utils.Joysticks;
  */
 public class IODefines {
     //Digitals Outs
-    public static final int TONGUE_RELAY = 4;
-    public static final int CAMERA_XY_SERVO = 9;
-    public static final int CAMERA_Z_SERVO = 10;
+    public static final int TONGUE_RELAY = 1;
+    public static final int TRIGGER_MOTOR = 2;
 
     //Digital Ins
     public static final int LEFT_DRIVE_ENCODER_A = 13;
@@ -24,15 +24,17 @@ public class IODefines {
     public static final int RIGHT_DRIVE_ENCODER_B = 12;
     public static final int BALL_READY_SWITCH_DI = 10;
     public static final int SHOOTER_PHOTO_INTERUPTER = 9;
+    public static final int SHOULDER_ENCODER = 8;
 
     //PWMs
     public static final int LEFT_DRIVE = 1;
     public static final int RIGHT_DRIVE = 2;
-    public static final int SHOOTER_DRIVE = 3;
-    public static final int PICKUP_SHUTE_MOTOR = 5;
-    public static final int TRIGGER_MOTOR = 6;
-    public static final int SHOOTER_ANGLE_MOTOR = 7;
-    public static final int SHOULDER_MOTOR = 8;
+    public static final int SHOOTER_MOTOR = 3;
+    public static final int PICKUP_SHUTE_MOTOR = 4;
+    public static final int SHOOTER_ANGLE_MOTOR = 5;
+    public static final int SHOULDER_MOTOR = 6;
+//    public static final int CAMERA_XY_SERVO = 7;
+//    public static final int CAMERA_Z_SERVO = 8;
 
     //Analog Ins
     // <NONE>
@@ -41,8 +43,8 @@ public class IODefines {
     // <NONE>
 
     // Joystick Defines
-    public static final ButtonMapping TRIGGER_BUTTON = new ButtonMapping(Joysticks.left(),1);
-    public static final ButtonMapping TONGUE_BUTTON = new ButtonMapping(Joysticks.right(),3);
-    public static final ButtonMapping PICKUP_RAMP_BUTTON = new ButtonMapping(Joysticks.left(),3);
+    public static final JoystickButton TRIGGER_BUTTON = new JoystickButton(Joysticks.left(),1);
+    public static final JoystickButton TONGUE_BUTTON = new JoystickButton(Joysticks.right(),3);
+    public static final JoystickButton PICKUP_RAMP_BUTTON = new JoystickButton(Joysticks.left(),3);
 
 }

@@ -6,42 +6,40 @@ import RobotMain.ButtonMapping;
 import RobotMain.Constants;
 import RobotMain.IODefines;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * The trigger pushes the ball into the shooter.
  */
 public class Trigger extends AbstractRobotDevice {
 
-    private Victor triggerMotor = new Victor(IODefines.TRIGGER_MOTOR);
-    private ButtonMapping buttonMapping = IODefines.TRIGGER_BUTTON;
-    private Joystick joystick = buttonMapping.joystick;
+    private Relay triggerMotor = new Relay(IODefines.TRIGGER_MOTOR);
+    private final JoystickButton triggerButton = IODefines.TRIGGER_BUTTON;
     private final BallReadySwitch ballReadySwitch;
 
     public Trigger(BallReadySwitch _ballReadySwitch) {
         ballReadySwitch = _ballReadySwitch;
+        triggerMotor.setDirection(Relay.Direction.kForward);
     }
 
     /**
      * Shoot the ball.
      */
     public void shoot() {
-        triggerMotor.set(1.0);
+        triggerMotor.set(Relay.Value.kOn);
         Threading.sleep(2 * 1000);
-        triggerMotor.set(0.0);
+        triggerMotor.set(Relay.Value.kOff);
     }
 
     public void initialize() {
         Threading.runInLoop(Constants.LimitSwitches.loopTime, new TriggerLoop(), "Trigger");
     }
 
-    public void disable() {
-        triggerMotor.disable();
-    }
-
     private class TriggerLoop implements Runnable {
         public void run() {
-            final boolean triggerPressed = joystick.getRawButton(buttonMapping.button);
+            final boolean triggerPressed = triggerButton.get();
             if (triggerPressed && ballReadySwitch.isBallReady()) {
                 shoot();
             }

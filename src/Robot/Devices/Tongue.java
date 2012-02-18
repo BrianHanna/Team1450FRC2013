@@ -10,6 +10,7 @@ import RobotMain.Constants;
 import RobotMain.IODefines;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * The tongue is responsible for picking up the ball from the ground.
@@ -19,11 +20,10 @@ import edu.wpi.first.wpilibj.Relay;
 public class Tongue extends AbstractRobotDevice {
 
     private final Relay tongueRelay = new Relay(IODefines.TONGUE_RELAY);
-    private final ButtonMapping buttonMapping = IODefines.TONGUE_BUTTON;
-    private final Joystick joystick = buttonMapping.joystick;
+    private final JoystickButton button = IODefines.TONGUE_BUTTON;
 
     private void checkButtonAndActivateTongue() {
-        boolean pressed = joystick.getRawButton(buttonMapping.button);
+        boolean pressed = button.get();
         if (pressed) {
             tongueRelay.set(Relay.Value.kOn);
         } else {

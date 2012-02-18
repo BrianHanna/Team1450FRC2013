@@ -6,6 +6,7 @@ import RobotMain.Constants;
 import RobotMain.IODefines;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * The pickup ramp
@@ -13,8 +14,7 @@ import edu.wpi.first.wpilibj.Victor;
 public class PickupRamp  extends AbstractRobotDevice {
 
     private final Victor pickupRampMotor = new Victor(IODefines.PICKUP_SHUTE_MOTOR);
-    private final ButtonMapping buttonMapping = IODefines.PICKUP_RAMP_BUTTON;
-    private final Joystick leftJoystick = buttonMapping.joystick;
+    private final JoystickButton button = IODefines.PICKUP_RAMP_BUTTON;
 
     public void disable() {
         pickupRampMotor.disable();
@@ -26,7 +26,7 @@ public class PickupRamp  extends AbstractRobotDevice {
 
     private class PickupRampLoop implements Runnable {
         public void run() {
-            if (leftJoystick.getRawButton(buttonMapping.button)) {
+            if (button.get()) {
                 pickupRampMotor.set(1.0);
             } else {
                 pickupRampMotor.set(0.0);

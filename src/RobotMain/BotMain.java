@@ -46,6 +46,8 @@ public class BotMain extends SimpleRobot {
     /** Shooter shoots the ball */
     Shooter shooter = new Shooter();
 
+    CameraSystem cameraSystem = new CameraSystem();
+
 
     /**
      * This function is called once each time the robot enters autonomous mode.
@@ -83,6 +85,7 @@ public class BotMain extends SimpleRobot {
         shooter.initialize();
         tongue.initialize();
         trigger.initialize();
+        cameraSystem.initialize();
         ballReadySwitch.setBallReadyListener(ballReadyListener);
         System.out.println("Drives started");
     }

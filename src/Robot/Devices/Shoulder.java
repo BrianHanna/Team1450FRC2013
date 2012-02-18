@@ -4,6 +4,7 @@ import Robot.Utils.Joysticks;
 import Robot.Utils.Threading;
 import RobotMain.Constants;
 import RobotMain.IODefines;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.Victor;
  */
 public class Shoulder extends AbstractRobotDevice {
     private Victor shoulderMotor = new Victor(IODefines.SHOULDER_MOTOR);
+    private Encoder encoder = new Encoder(IODefines.SHOULDER_ENCODER,IODefines.SHOULDER_ENCODER);
     private Joystick joystick = Joysticks.left();
 
     public void disable() {
