@@ -2,15 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Robot.Devices;
+package RobotOld.Devices;
 
 import Robot.Utils.Threading;
-import RobotMain.ButtonMapping;
+import RobotOld.ButtonMapping;
 import RobotMain.Constants;
 import RobotMain.IODefines;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * The tongue is responsible for picking up the ball from the ground.
@@ -20,10 +19,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class Tongue extends AbstractRobotDevice {
 
     private final Relay tongueRelay = new Relay(IODefines.TONGUE_RELAY);
-    private final JoystickButton button = IODefines.TONGUE_BUTTON;
+    private final ButtonMapping buttonMapping = IODefines.TONGUE_BUTTON;
+    private final Joystick joystick = buttonMapping.joystick;
 
     private void checkButtonAndActivateTongue() {
-        boolean pressed = button.get();
+        boolean pressed = joystick.getRawButton(buttonMapping.button);
         if (pressed) {
             tongueRelay.set(Relay.Value.kOn);
         } else {

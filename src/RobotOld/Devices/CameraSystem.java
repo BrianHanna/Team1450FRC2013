@@ -1,9 +1,5 @@
-package Robot.Devices;
+package RobotOld.Devices;
 
-import Robot.Utils.Threading;
-import RobotMain.Constants;
-import RobotMain.IODefines;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.*;
@@ -17,8 +13,6 @@ public class CameraSystem extends AbstractRobotDevice {
     private final static double EXPECTED_ASPECT_RATIO = 24.0 / 18.0;
 
     private final AxisCamera camera = AxisCamera.getInstance();
-//    private Servo xyServo = new Servo(IODefines.CAMERA_XY_SERVO);
-//    private Servo zServo = new Servo(IODefines.CAMERA_Z_SERVO);
     private CriteriaCollection criteriaCollection = new CriteriaCollection();
     private ParticleAnalysisReport highParticle = null;
 
@@ -28,13 +22,15 @@ public class CameraSystem extends AbstractRobotDevice {
         Threading.runInLoop(Constants.LimitSwitches.loopTime, new CameraLoop(),"Camera");
     }
 
-    private void processImage(ColorImage image) throws NIVisionException {
+
+   public void processImage(ColorImage image) throws NIVisionException {
         BinaryImage threshholdImage = null;
         BinaryImage bigObjectsImage = null;
         BinaryImage convexHullImage = null;
         BinaryImage filteredImage = null;
         try {
-            threshholdImage = image.thresholdRGB(25, 255, 0, 45, 0, 47);
+            threshholdImage = image.thresholdHSV(0,20,0,255,0,255);
+//            threshholdImage = image.thresholdRGB(25, 255, 0, 45, 0, 47);
             bigObjectsImage = threshholdImage.removeSmallObjects(false, 2);
             convexHullImage = bigObjectsImage.convexHull(false);
             filteredImage = convexHullImage.particleFilter(criteriaCollection);
@@ -88,6 +84,20 @@ public class CameraSystem extends AbstractRobotDevice {
                     }
                 }
             }
+        }
+    }
+
+    public AxisCamera getCamera() {
+        return camera;
+    }
+
+    public void processImage() {
+        try {
+            processImage(camera.getImage());
+        } catch (NIVisionException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (AxisCameraException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 }
