@@ -1,5 +1,7 @@
 package RobotOld.Devices;
 
+import Robot.Utils.Threading;
+import RobotMain.Constants;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.*;
@@ -19,7 +21,7 @@ public class CameraSystem extends AbstractRobotDevice {
     public void initialize() {
         criteriaCollection.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH,30,400,false);
         criteriaCollection.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT,40,400,false);
-        Threading.runInLoop(Constants.LimitSwitches.loopTime, new CameraLoop(),"Camera");
+        Threading.runInLoop(Constants.LimitSwitches.loopTime, new CameraLoop(), "Camera");
     }
 
 

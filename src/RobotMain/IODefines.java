@@ -6,7 +6,7 @@
 package RobotMain;
 
 import Robot.Utils.Joysticks;
-import RobotOld.ButtonMapping;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  *
